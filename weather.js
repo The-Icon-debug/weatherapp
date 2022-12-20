@@ -76,5 +76,6 @@ const renderSecondaryHtml = (data) =>{
             <p>${data.name}</p>
         </div>
     </div>
+    <small class='text-warning'>Bernard M.</small>
     </div>`
 }
