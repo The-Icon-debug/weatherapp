@@ -4,7 +4,7 @@ const main = document.getElementById('main')
 const secondary = document.getElementById('secondary')
 
 const directGeocoding = async (city) =>{
-    const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=63f0db96107852b345b0a343bfa06e2c`)
+    const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=63f0db96107852b345b0a343bfa06e2c`,{mode:`cors`})
     const latLon = await response.json()
     return latLon
 }
@@ -14,7 +14,7 @@ form.addEventListener('submit', e =>{
     let location = document.getElementById('location').value
     location = location[0].toUpperCase() + location.slice(1).toLowerCase()
     directGeocoding(location).then(data =>{
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${data[0].lat}&lon=${data[0].lon}&appid=63f0db96107852b345b0a343bfa06e2c`)
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${data[0].lat}&lon=${data[0].lon}&appid=63f0db96107852b345b0a343bfa06e2c`,{mode:`cors`})
         .then(res => res.json())
         .then(weatherData => {
             renderMainHtml(weatherData)
@@ -76,6 +76,6 @@ const renderSecondaryHtml = (data) =>{
             <p>${data.name}</p>
         </div>
     </div>
-    <small class='text-warning'>Bernard M.</small>
+    <h1 class='text-warning'>Bernard M.</h1>
     </div>`
 }
