@@ -1,0 +1,10 @@
+div.main-content {
+    font-family: 'Amita', cursive;
+
+}
+
+body {
+    background: url(./images/tornado.jpg) no-repeat center fixed;
+    background-size: cover;
+
+}
