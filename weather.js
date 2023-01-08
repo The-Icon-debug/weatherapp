@@ -1,7 +1,8 @@
-const giphyApi = 'GOwXrMNEHt21JiUvhrXgqQefBdpxDeMR'
 const form = document.querySelector('form')
 const main = document.getElementById('main')
 const secondary = document.getElementById('secondary')
+const loading = document.getElementById('loading')
+const timeEl = document.getElementById('time-el')
 
 const directGeocoding = async (city) =>{
     const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=63f0db96107852b345b0a343bfa06e2c`)
@@ -11,15 +12,22 @@ const directGeocoding = async (city) =>{
 
 form.addEventListener('submit', e =>{
     e.preventDefault()
+    const initTime = new Date()
+    timeEl.style.display = 'none'
+    loading.style.display = 'block'
     let location = document.getElementById('location').value
     location = location[0].toUpperCase() + location.slice(1).toLowerCase()
     directGeocoding(location).then(data =>{
         fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${data[0].lat}&lon=${data[0].lon}&appid=63f0db96107852b345b0a343bfa06e2c`)
         .then(res => res.json())
         .then(weatherData => {
+            const updateTime = new Date()
+            timeEl.style.display = 'block'
+            timeEl.innerText = 'Load duration:' + " " + (updateTime - initTime) /1000 + 'sec'
+            loading.style.display = 'none'
             renderMainHtml(weatherData)
             renderSecondaryHtml(weatherData)
-            console.log(weatherData)
+            //console.log(weatherData)
         })
     })
 })
